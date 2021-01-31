@@ -150,12 +150,12 @@ def consecutive_nights(available, nights):
     return len(longest_consecutive) >= nights
 
 
-def main(parks):
+def main(parks, start_date, end_date, nights=0, campsite_type="STANDARD NONELECTRIC"):
     out = []
     availabilities = False
     for park_id in parks:
         park_information = get_park_information(
-            park_id, args.start_date, args.end_date, args.campsite_type
+            park_id, start_date, end_date, campsite_type
         )
         LOG.debug(
             "Information for park {}: {}".format(
@@ -164,7 +164,7 @@ def main(parks):
         )
         name_of_site = get_name_of_site(park_id)
         current, maximum = get_num_available_sites(
-            park_information, args.start_date, args.end_date, nights=args.nights
+            park_information, start_date, end_date, nights=nights
         )
         if current:
             emoji = SUCCESS_EMOJI
@@ -181,8 +181,8 @@ def main(parks):
     if availabilities:
         print(
             "There are campsites available from {} to {}!!!".format(
-                args.start_date.strftime(INPUT_DATE_FORMAT),
-                args.end_date.strftime(INPUT_DATE_FORMAT),
+                start_date.strftime(INPUT_DATE_FORMAT),
+                end_date.strftime(INPUT_DATE_FORMAT),
             )
         )
     else:
@@ -207,6 +207,7 @@ def positive_int(i):
 
 
 if __name__ == "__main__":
+    '''
     parser = argparse.ArgumentParser()
     parser.add_argument("--debug", "-d", action="store_true", help="Debug log level")
     parser.add_argument(
@@ -252,9 +253,16 @@ if __name__ == "__main__":
         LOG.setLevel(logging.DEBUG)
 
     parks = args.parks or [p.strip() for p in sys.stdin]
+    '''
 
+    parks = ['234015',]
+    start_date = '2020-11-6'
+    end_date = '2020-11-8'
+
+    start_date = date(2020, 11, 6)
+    end_date = date(2020, 11, 8)
     try:
-        code = 0 if main(parks) else 1
+        code = 0 if main(parks, start_date, end_date, 2, '') else 1
         sys.exit(code)
     except Exception:
         print("Something went wrong")
