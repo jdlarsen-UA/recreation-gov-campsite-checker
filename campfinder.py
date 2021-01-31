@@ -264,11 +264,14 @@ class FindCampsite():
 
 
 if __name__ == "__main__":
-    parks = ['234015', ]
+    with open("master_list.json") as foo:
+        parks = json.load(foo)
+
+    park = parks['pinnacles']
     start_date = '2021-11-6'
     end_date = '2021-11-8'
 
-    fc = FindCampsite(parks, start_date, end_date)
+    fc = FindCampsite(park, start_date, end_date)
     avail = fc.go_camp()
     if avail:
         fc.show_campsite()

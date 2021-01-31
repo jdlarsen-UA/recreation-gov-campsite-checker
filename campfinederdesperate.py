@@ -1,5 +1,5 @@
 from campfinder import FindCampsite
-import time
+import json
 
 
 class ThatAsehole(object):
@@ -49,9 +49,12 @@ class ThatAsehole(object):
                 fc.show_campsite()
 
 if __name__ == "__main__":
-    parks = ['234015', ]
+    with open("master_list.json") as foo:
+        parks = json.load(foo)
+
+    park = parks['pinnacles']
     start_date = '2021-11-6'
     end_date = '2021-11-8'
 
-    that = ThatAsehole(parks, start_date, end_date)
+    that = ThatAsehole(park, start_date, end_date)
     avail = that.go_camp()
