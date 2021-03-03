@@ -1,6 +1,7 @@
 from campfinder import FindCampsite
 import json
 import time
+import os
 
 
 class IneedToCamp(object):
@@ -31,6 +32,26 @@ class IneedToCamp(object):
         self.start_date = start_date
         self.end_date = end_date
         self.site_type = site_type
+
+    def notify(self, times=100):
+        """
+        Method to play a tone and notify of available camping
+
+        Returns
+        -------
+            None
+        """
+        try:
+            import playsound
+        except ImportError:
+            return
+
+        ws = os.path.abspath(os.path.dirname(__file__))
+        audio = os.path.join(ws, "data", "swinging-617.mp3")
+        time.sleep(5)
+        n = 0
+        while n < times:
+            playsound.playsound(audio)
 
     def go_camp(self, popup=True):
         """
@@ -72,4 +93,3 @@ if __name__ == "__main__":
 
     intc = IneedToCamp(park, start_date, end_date)
     avail = intc.go_camp()
-
