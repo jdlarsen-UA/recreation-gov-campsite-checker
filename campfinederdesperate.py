@@ -1,5 +1,6 @@
 from campfinder import FindCampsite
 import json
+import time
 
 
 class ThatAsehole(object):
@@ -41,20 +42,31 @@ class ThatAsehole(object):
             if true, opens the reservation.gov site
         """
         avail = False
+        n = 0
+        m = 0
         while not avail:
             fc = FindCampsite(self.campgrounds, self.start_date,
                               self.end_date, self.site_type)
-            avail = fc.go_camp()
+            try:
+                avail = fc.go_camp()
+            except:
+                print('exception: {}'.format(n))
+                n += 1
+                time.sleep(5)
             if avail:
                 fc.show_campsite()
+            else:
+                print('try number: {}'.format(m))
+                m += 1
+                time.sleep(5)
 
 if __name__ == "__main__":
     with open("master_list.json") as foo:
         parks = json.load(foo)
 
     park = parks['pinnacles']
-    start_date = '2021-11-6'
-    end_date = '2021-11-8'
+    start_date = '2021-3-6'
+    end_date = '2021-3-7'
 
     that = ThatAsehole(park, start_date, end_date)
     avail = that.go_camp()
