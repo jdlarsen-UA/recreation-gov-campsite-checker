@@ -3,7 +3,7 @@ import json
 import time
 
 
-class ThatAsehole(object):
+class IneedToCamp(object):
     """
     Class method for finding a campsite in using the recreation.gov
     API.
@@ -58,7 +58,7 @@ class ThatAsehole(object):
             else:
                 print('try number: {}'.format(m))
                 m += 1
-                time.sleep(5)
+                time.sleep(7)
 
 if __name__ == "__main__":
     with open("master_list.json") as foo:
@@ -68,5 +68,5 @@ if __name__ == "__main__":
     start_date = '2021-3-6'
     end_date = '2021-3-7'
 
-    that = ThatAsehole(park, start_date, end_date)
+    that = IneedToCamp(park, start_date, end_date)
     avail = that.go_camp()
