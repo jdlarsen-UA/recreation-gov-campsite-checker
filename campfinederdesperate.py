@@ -54,11 +54,13 @@ class IneedToCamp(object):
                 n += 1
                 time.sleep(5)
             if avail:
-                fc.show_campsite()
+                if popup:
+                    fc.show_campsite()
             else:
                 print('try number: {}'.format(m))
                 m += 1
                 time.sleep(7)
+
 
 if __name__ == "__main__":
     with open("master_list.json") as foo:
@@ -68,5 +70,6 @@ if __name__ == "__main__":
     start_date = '2021-3-6'
     end_date = '2021-3-7'
 
-    that = IneedToCamp(park, start_date, end_date)
-    avail = that.go_camp()
+    intc = IneedToCamp(park, start_date, end_date)
+    avail = intc.go_camp()
+
